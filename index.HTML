@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ICT Quiz Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #1e3c72;
+            background: linear-gradient(to right, #2a5298, #1e3c72);
+            color: white;
+            text-align: center;
+            padding: 30px;
+        }
+
+        .quiz-container {
+            background: white;
+            color: black;
+            padding: 25px;
+            width: 400px;
+            margin: auto;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        button {
+            display: block;
+            width: 80%;
+            margin: 10px auto;
+            padding: 10px;
+            font-size: 14px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            background: #2a5298;
+            color: white;
+        }
+
+        button:hover {
+            background: #1e3c72;
+        }
+
+        #result {
+            margin-top: 15px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+<div class="quiz-container">
+    <h2>ICT Quiz Game 💻</h2>
+
+    <p id="question"></p>
+
+    <button id="btnA" onclick="checkAnswer('A')"></button>
+    <button id="btnB" onclick="checkAnswer('B')"></button>
+    <button id="btnC" onclick="checkAnswer('C')"></button>
+    <button id="btnD" onclick="checkAnswer('D')"></button>
+
+    <p id="result"></p>
+    <p id="score"></p>
+</div>
+
+<script>
+let questions = [
+    {q:"What does CPU stand for?", A:"Central Process Unit", B:"Central Processing Unit", C:"Computer Personal Unit", D:"Central Processor Utility", correct:"B"},
+    {q:"Which is an input device?", A:"Monitor", B:"Printer", C:"Keyboard", D:"Speaker", correct:"C"},
+    {q:"HTML stands for?", A:"Hyper Text Markup Language", B:"High Text Machine Language", C:"Home Tool Markup Language", D:"Hyper Tool Multi Language", correct:"A"},
+    {q:"Example of Operating System?", A:"Microsoft Word", B:"Google Chrome", C:"Windows", D:"PowerPoint", correct:"C"},
+    {q:"Brain of the computer?", A:"RAM", B:"Hard Drive", C:"CPU", D:"Motherboard", correct:"C"},
+    {q:"What does ICT stand for?", A:"Information Communication Technology", B:"Internet Computer Technology", C:"Integrated Communication Tool", D:"Information Control Technology", correct:"A"},
+    {q:"Which tag is for paragraph in HTML?", A:"<h1>", B:"<br>", C:"<p>", D:"<div>", correct:"C"},
+    {q:"Used to connect to internet?", A:"Router", B:"Scanner", C:"Projector", D:"Keyboard", correct:"A"},
+    {q:"Phishing means?", A:"Catching fish online", B:"Cyber attack to steal info", C:"Gaming strategy", D:"Software update", correct:"B"},
+    {q:"Portable storage device?", A:"Hard Disk Drive", B:"Flash Drive", C:"CPU", D:"Monitor", correct:"B"}
+];
+
+let current = 0;
+let score = 0;
+
+function loadQuestion() {
+    let q = questions[current];
+    document.getElementById("question").innerHTML = q.q;
+    document.getElementById("btnA").innerHTML = "A. " + q.A;
+    document.getElementById("btnB").innerHTML = "B. " + q.B;
+    document.getElementById("btnC").innerHTML = "C. " + q.C;
+    document.getElementById("btnD").innerHTML = "D. " + q.D;
+}
+
+function checkAnswer(ans) {
+    if(ans === questions[current].correct){
+        score++;
+        document.getElementById("result").innerHTML = "Correct! 🎉";
+    } else {
+        document.getElementById("result").innerHTML = "Wrong! ❌";
+    }
+
+    document.getElementById("score").innerHTML = "Score: " + score;
+
+    current++;
+    if(current < questions.length){
+        setTimeout(()=>{
+            document.getElementById("result").innerHTML = "";
+            loadQuestion();
+        }, 800);
+    } else {
+        setTimeout(()=>{
+            document.getElementById("question").innerHTML = "Quiz Finished!";
+            document.getElementById("btnA").style.display = "none";
+            document.getElementById("btnB").style.display = "none";
+            document.getElementById("btnC").style.display = "none";
+            document.getElementById("btnD").style.display = "none";
+            document.getElementById("result").innerHTML = "Final Score: " + score + " / 10";
+        }, 800);
+    }
+}
+
+loadQuestion();
+</script>
+
+</body>
+</html>
